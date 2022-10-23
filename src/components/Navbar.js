@@ -64,7 +64,7 @@ const Navbar = ({ children }) => {
               </li>
               {admin && (
                 <li>
-                  <NavLink to="/dashboard" className="rounded-lg">
+                  <NavLink to="/dashboard/add-service" className="rounded-lg">
                     Dashboard
                   </NavLink>
                 </li>
@@ -153,7 +153,7 @@ const Navbar = ({ children }) => {
           </li>
           {admin && (
             <li>
-              <NavLink to="/dashboard" className="rounded-lg">
+              <NavLink to="/dashboard/add-service" className="rounded-lg">
                 Dashboard
               </NavLink>
             </li>
