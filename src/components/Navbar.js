@@ -1,13 +1,40 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import useAdmin from "../hooks/useAdmin";
 
 const Navbar = ({ children }) => {
+  const [dark, setDark] = useState(false);
+  const [admin] = useAdmin();
+
+  const location = useLocation();
+
   return (
-    <div className="drawer drawer-end">
+    <div data-theme={dark ? "dark" : "light"} className="drawer drawer-end">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* <!-- Navbar --> */}
-        <div className="w-full navbar bg-base-100 fixed top-0 md:px-20 lg:px-20">
+        <div className="w-full navbar z-50 bg-base-100 fixed top-0 md:px-20 lg:px-20">
+          {location.pathname === "/dashboard" && (
+            <label
+              htmlFor="my-drawer-2"
+              className="btn btn-ghost drawer-button lg:hidden"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h7"
+                />
+              </svg>
+            </label>
+          )}
           <div className="flex-1 px-2 mx-2 text-2xl">Clean-Co.</div>
           <div className="flex-none lg:hidden">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
@@ -35,6 +62,13 @@ const Navbar = ({ children }) => {
                   Home
                 </NavLink>
               </li>
+              {admin && (
+                <li>
+                  <NavLink to="/dashboard" className="rounded-lg">
+                    Dashboard
+                  </NavLink>
+                </li>
+              )}
               <li>
                 <NavLink to="/about" className="rounded-lg">
                   About
@@ -68,17 +102,21 @@ const Navbar = ({ children }) => {
                   className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <a>Item 1</a>
+                    <NavLink to="/services" className="rounded-lg">
+                      Quick Book
+                    </NavLink>
                   </li>
                   <li>
-                    <a>Item 2</a>
+                    <NavLink to="/login" className="rounded-lg">
+                      Pre Book
+                    </NavLink>
                   </li>
                 </ul>
               </li>
 
               <label className="swap swap-rotate">
                 {/* <!-- this hidden checkbox controls the state --> */}
-                <input type="checkbox" />
+                <input onClick={() => setDark(!dark)} type="checkbox" />
 
                 {/* <!-- sun icon --> */}
                 <svg
@@ -109,20 +147,55 @@ const Navbar = ({ children }) => {
         <ul className="menu p-4 overflow-y-auto w-80 bg-base-100">
           {/* <!-- Sidebar content here --> */}
           <li>
-            <a>Home</a>
+            <NavLink to="/home" className="rounded-lg">
+              Home
+            </NavLink>
+          </li>
+          {admin && (
+            <li>
+              <NavLink to="/dashboard" className="rounded-lg">
+                Dashboard
+              </NavLink>
+            </li>
+          )}
+          <li>
+            <NavLink to="/about" className="rounded-lg">
+              About
+            </NavLink>
           </li>
           <li>
-            <a>About</a>
+            <NavLink to="/services" className="rounded-lg">
+              Services
+            </NavLink>
           </li>
           <li>
-            <a>Services</a>
+            <NavLink to="/contact" className="rounded-lg">
+              Contact
+            </NavLink>
           </li>
           <li>
-            <a>Contact</a>
+            <NavLink to="/login" className="rounded-lg">
+              Login
+            </NavLink>
           </li>
-          <li>
-            <a>Login</a>
-          </li>
+          <div
+            tabIndex={0}
+            className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box"
+          >
+            <div className="collapse-title text-xl font-medium">Book Now</div>
+            <div className="collapse-content">
+              <li>
+                <NavLink to="/services" className="rounded-lg">
+                  Quick Book
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/login" className="rounded-lg">
+                  Pre Book
+                </NavLink>
+              </li>
+            </div>
+          </div>
         </ul>
       </div>
     </div>
