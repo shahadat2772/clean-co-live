@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = () => {
   const user = false;
   const location = useLocation();
 
